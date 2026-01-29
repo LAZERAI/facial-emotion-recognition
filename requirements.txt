@@ -1,0 +1,9 @@
+tensorflow>=2.10,<2.21
+deepface>=0.0.98
+opencv-python>=4.5
+numpy>=1.23
+scikit-learn>=1.0
+h5py
+Pillow
+matplotlib
+tqdm
