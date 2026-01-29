@@ -2,6 +2,16 @@
 
 Two approaches to detect facial emotions in real-time: DeepFace embedding-based classification and EfficientNetB0 transfer learning.
 
+## What's included
+
+- **`efficientnet/`** — EfficientNetB0 transfer learning implementation. Fast inference (30+ FPS), end-to-end trainable model.
+- **`deepface/`** — DeepFace-based approach using VGG-Face embeddings. More robust to face angle, slightly slower.
+- **`emotion__images/`** — Dataset directory (you provide images in emotion-labeled subfolders).
+- **`requirements.txt`** — Python dependencies.
+- **`deploy.prototxt`, `res10_300x300_ssd_iter_140000.caffemodel`** — Pre-trained SSD face detector weights for OpenCV (optional; falls back to Haar if not available).
+
+Both approaches use OpenCV for webcam inference and face detection.
+
 ## Install
 
 ```bash
