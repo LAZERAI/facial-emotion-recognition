@@ -1,17 +1,17 @@
 # Emotion Recognition
 
-Real-time facial emotion detection using two parallel approaches: **EfficientNetB0** (fast transfer learning) and **DeepFace** (robust embeddings). Choose based on your speed/accuracy needs.
+Real-time facial emotion detection. Two different ways to do it: **EfficientNetB0** (fast) or **DeepFace embeddings** (more accurate). Pick whichever fits what you're trying to do.
 
-## Features
+## What you get
 
-- **Two emotion recognition models** — compare approaches within one codebase
-- **Real-time webcam inference** — detect emotions live with OpenCV
-- **Fast (30+ FPS)** — EfficientNetB0 optimized for speed
-- **Robust to pose variation** — DeepFace VGG-Face embeddings handle angles well
-- **No pre-trained models** — train from your own data
-- **Face detection built-in** — uses OpenCV DNN (SSD) with Haar fallback
+- Two emotion recognition models to compare
+- Real-time webcam stuff with OpenCV
+- EfficientNetB0 runs at 30+ FPS, so it's actually usable
+- DeepFace is slower but handles face angles better
+- You train it on your own data (no pre-trained models included)
+- Face detection built in, uses OpenCV DNN but falls back to Haar if needed
 
-## Tech Stack
+## Stack
 
 - Python 3.8+
 - TensorFlow / Keras
@@ -19,36 +19,36 @@ Real-time facial emotion detection using two parallel approaches: **EfficientNet
 - OpenCV
 - NumPy, scikit-learn
 
-## Project Structure
+## Folder layout
 
 ```
-efficientnet/        # Transfer learning approach
+efficientnet/        # Fast transfer learning approach
   ├── train_efficientnet.py
   └── run_efficientnet.py
 
-deepface/            # Embedding-based approach
+deepface/            # Embedding-based approach (more accurate)
   ├── train_deepface.py
   └── run_deepface.py
 
-emotion__images/     # Your dataset (you provide)
+emotion__images/     # Put your dataset here
 requirements.txt
 LICENSE
 ```
 
-## How It Works
+## How it works
 
-### EfficientNet Approach
-1. Load pre-trained EfficientNetB0 (ImageNet weights)
-2. Attach trainable classifier head (frozen base)
-3. Train on your emotion dataset
-4. Inference: detect face → crop → predict emotion in real-time (30+ FPS)
+### EfficientNet way
+1. Load EfficientNetB0 from ImageNet
+2. Add a trainable head on top (keep base frozen)
+3. Train it on your emotion images
+4. Run inference: detect face → crop → predict (pretty fast)
 
-### DeepFace Approach
-1. Extract 2622-d VGG-Face embeddings from each training image
-2. Train lightweight dense classifier on embeddings
-3. Inference: detect face → extract embedding → classify emotion (10-15 FPS)
+### DeepFace way
+1. Extract VGG-Face embeddings (2622-d vectors) from each image
+2. Train a small dense classifier on those embeddings
+3. Run inference: detect face → get embedding → classify
 
-## Quick Start
+## Getting started
 
 ### Install
 
@@ -56,49 +56,47 @@ LICENSE
 pip install -r requirements.txt
 ```
 
-### Train
-
-Choose your approach:
+### Train a model
 
 ```bash
-# EfficientNet
+# Fast approach
 python efficientnet/train_efficientnet.py
 
-# DeepFace
+# Accurate approach
 python deepface/train_deepface.py
 ```
 
-### Inference
+### Run it
 
 ```bash
 # EfficientNet (faster)
 python efficientnet/run_efficientnet.py
 
-# DeepFace (more robust)
+# DeepFace (better accuracy)
 python deepface/run_deepface.py
 ```
 
-Both expect `emotion__images/` with subfolders: `Angry/`, `Disgust/`, `Fear/`, `Happy/`, `Neutral/`, `Sad/`, `Surprise/`.
+Just make sure you have `emotion__images/` with folders like `Angry/`, `Happy/`, `Sad/`, etc.
 
-## Which Approach?
+## EfficientNet vs DeepFace
 
-| Metric | EfficientNet | DeepFace |
-|--------|--------------|----------|
+| | EfficientNet | DeepFace |
+| --- | --- | --- |
 | Speed | 30+ FPS | 10-15 FPS |
-| Robustness | Good | Excellent |
-| Angle handling | Moderate | Strong |
-| Training time | Fast | Slower (embedding extraction) |
+| Accuracy | Good | Better |
+| Face angles | Okay | Much better |
+| Training | Fast | Slower (embeddings take time) |
 | Model size | ~20MB | ~10MB |
 
-Use **EfficientNet** for real-time performance. Use **DeepFace** if accuracy matters more than speed.
+**TL;DR** — Use EfficientNet if you need it to run fast. Use DeepFace if accuracy matters more.
 
-## What's Included
+## What's in here
 
-- **`efficientnet/`** — EfficientNetB0 implementation
-- **`deepface/`** — DeepFace + dense classifier
-- **Face detection files** — `deploy.prototxt`, `res10_300x300_ssd_iter_140000.caffemodel` (optional; Haar cascade fallback if missing)
-- **`requirements.txt`** — All dependencies with versions
-- **`smoke_check.py`** — Quick environment validation
+- `efficientnet/` — EfficientNetB0 stuff
+- `deepface/` — DeepFace stuff  
+- Face detector files — `deploy.prototxt` and the caffemodel (optional, has fallback)
+- `requirements.txt` — dependencies
+- `smoke_check.py` — quick check if everything's installed
 
 ## License
 
